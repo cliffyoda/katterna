@@ -20,8 +20,57 @@
     Yoda born 2020-10-19
 
 </div>
+
+    <div id="update_info">
+        init
+    </div>
+
+    <div id="detail_info">
+        init
+    </div>
+
 </body>
 
+<script>
 
+    var infoBox = document.getElementById('update_info');
+    var detailBox = document.getElementById('detail_info');
+
+    infoBox.innerHTML = 'Två fina katter';
+
+    detailBox.innerHTML = 'details here';
+
+    var isHungry = false;
+    var isHungryMessage = 'yoda hungry state is: '
+    var bellyIsEmpty = false;
+    var bellyFoodYoda = 10;
+
+
+    function checkTheBellyForHungry(foodInBelly){
+        if(foodInBelly < 3) {
+            return true;
+        } else {
+            return false
+        }
+    };
+
+    var updateYoda = function updateCreature(foodInBelly) {
+        foodInBelly = foodInBelly-1;
+        return foodInBelly;
+    };
+
+    for(var i = 0; i < 10; i++) {
+
+        isHungry = checkTheBellyForHungry(bellyFoodYoda);
+
+        isHungryMessage = isHungryMessage+isHungry;
+
+        detailBox.innerHTML = isHungryMessage;
+
+        bellyFoodYoda = updateYoda(bellyFoodYoda);
+
+    }
+
+</script>
 
 </html>
