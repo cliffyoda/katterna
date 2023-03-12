@@ -17,7 +17,7 @@
     </div>
 
 <div id="info_yoda">
-    Yoda born 2020-10-19
+   init
 
 </div>
 
@@ -35,7 +35,8 @@
 
     var infoBox = document.getElementById('update_info');
     var detailBox = document.getElementById('detail_info');
-
+    var yodaInfoBox = document.getElementById('info_yoda');
+    yodaInfoBox.innerHTML = 'Yoda born 2020-10-19';
     infoBox.innerHTML = 'Två fina katter';
 
     detailBox.innerHTML = 'details here';
@@ -47,6 +48,7 @@
     var bellyFoodYoda = 10;
     var yodaMeowness = 0;
     var yodaEatsAmountFood = 5;
+    var overEatAmountFood = 3;
 
 
     function checkTheBellyForHungry(foodInBelly){
@@ -57,6 +59,13 @@
         }
     };
 
+    function overEatFood() {
+       if(Math.random() <0.5 ) {
+           return overEatAmountFood
+       } else {
+           return 0
+       }
+    }
     function putFoodInBelly(addFood, foodInBelly) {
         foodInBelly = addFood+foodInBelly;
         return foodInBelly
@@ -64,11 +73,21 @@
 
     function makeMatteFeedMe(meowness, addFood, foodInBelly) {
         if (meowness > 1) {
-            foodInBelly = putFoodInBelly(addFood, foodInBelly)
+            foodInBelly = putFoodInBelly(addFood, foodInBelly);
+            foodInBelly+=overEatFood()
         }
         return foodInBelly
     };
+function vomit() {
+    bellyFoodYoda = 0;
+    yodaInfoBox.innerHTML += 'Vomitted at time '+ time;
+}
+    function checkVomit() {
+        if (bellyFoodYoda > 11) {
+            vomit()
 
+        }
+    }
     var updateYoda = function updateCreature() {
 
         bellyFoodYoda = bellyFoodYoda-0.1;
@@ -83,7 +102,7 @@
         }
 
         isHungry = checkTheBellyForHungry(bellyFoodYoda);
-
+        checkVomit()
     };
 
 
