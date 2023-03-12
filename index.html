@@ -40,36 +40,76 @@
 
     detailBox.innerHTML = 'details here';
 
+    var time = 0;
     var isHungry = false;
     var isHungryMessage = 'yoda hungry state is: '
     var bellyIsEmpty = false;
     var bellyFoodYoda = 10;
+    var yodaMeowness = 0;
+    var yodaEatsAmountFood = 5;
 
 
     function checkTheBellyForHungry(foodInBelly){
-        if(foodInBelly < 3) {
+        if(foodInBelly < 6) {
             return true;
         } else {
             return false
         }
     };
 
-    var updateYoda = function updateCreature(foodInBelly) {
-        foodInBelly = foodInBelly-1;
-        return foodInBelly;
+    function putFoodInBelly(addFood, foodInBelly) {
+        foodInBelly = addFood+foodInBelly;
+        return foodInBelly
     };
 
-    for(var i = 0; i < 10; i++) {
+    function makeMatteFeedMe(meowness, addFood, foodInBelly) {
+        if (meowness > 1) {
+            foodInBelly = putFoodInBelly(addFood, foodInBelly)
+        }
+        return foodInBelly
+    };
+
+    var updateYoda = function updateCreature() {
+
+        bellyFoodYoda = bellyFoodYoda-0.1;
+        yodaMeowness = yodaMeowness+Math.random()*0.03;
+
+        if (isHungry) {
+            bellyFoodYoda = makeMatteFeedMe(yodaMeowness, yodaEatsAmountFood, bellyFoodYoda);
+            isHungry = checkTheBellyForHungry(bellyFoodYoda);
+            if (isHungry === false) {
+                yodaMeowness = 0;
+            }
+        }
 
         isHungry = checkTheBellyForHungry(bellyFoodYoda);
 
-        isHungryMessage = isHungryMessage+isHungry;
+    };
 
-        detailBox.innerHTML = isHungryMessage;
 
-        bellyFoodYoda = updateYoda(bellyFoodYoda);
-
+    function updateFrame() {
+        requestAnimationFrame(updateTime)
     }
+
+    var updateTime = function() {
+
+        if (time < 200000) {
+
+            detailBox.innerHTML = isHungryMessage+isHungry;
+
+            infoBox.innerHTML = 'time: '+time+' Food in Yodas belly: '+bellyFoodYoda+' Meowness: '+yodaMeowness;
+
+            updateYoda();
+        }
+
+        time = time+1;
+        updateFrame()
+    }
+
+
+    updateTime()
+
+
 
 </script>
 
